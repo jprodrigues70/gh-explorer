@@ -1,4 +1,3 @@
-//import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +19,7 @@ public class Explorer {
 		
 		query.askAndMount();
 		
-		Searcher searcher = Factory.createSearcher(query.getExpectedOutput(), query);		
+		Searcher searcher = Factory.createSearcher(query.getExpectedOutput(), query.getQuery());		
 		System.out.println("Vamos procurar por: " + searcher.getUrl());
 		
 		GitHubOutput output = searcher.find();

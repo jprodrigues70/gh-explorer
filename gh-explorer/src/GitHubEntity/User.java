@@ -4,6 +4,10 @@ public class User implements GitHubEntity {
 	private String name;
 	private String login;
 	private String url;
+	private String id;
+	private String location;
+	private String email;
+	
 	private int id;
 	
 	public void setLogin(String login) {

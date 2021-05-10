@@ -42,7 +42,7 @@ public class Searcher {
 		while ((inputLine = in.readLine()) != null) {
 		    content.append(inputLine);
 		}
-		
+			
 		con.disconnect();
 		
 		Gson gson = new Gson();
