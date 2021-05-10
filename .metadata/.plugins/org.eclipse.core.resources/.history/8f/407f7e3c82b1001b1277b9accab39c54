@@ -1,0 +1,9 @@
+package Query;
+
+/**
+ * @author jprod
+ *
+ */
+public interface QueryInterface {
+	public String getType();
+}

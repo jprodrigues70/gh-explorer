@@ -1,0 +1,12 @@
+package Query;
+
+/**
+ * @author jprod
+ *
+ */
+public interface QueryInterface {
+	public String getType();
+	public String getSearch();
+	public void setSearch(String search);
+	public String askAndMount();
+}

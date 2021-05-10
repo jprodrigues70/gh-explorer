@@ -1,0 +1,16 @@
+import java.util.ArrayList;
+
+public class Explorer {
+
+	public static void main(String[] args) throws Exception {
+		Searcher searcher = new Searcher();
+		searcher.readQuery();
+		GitHubOutput gitHubOutput = searcher.find();
+		ArrayList<User> users = gitHubOutput.getItems();
+		
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).getLogin());
+		}
+	}
+
+}

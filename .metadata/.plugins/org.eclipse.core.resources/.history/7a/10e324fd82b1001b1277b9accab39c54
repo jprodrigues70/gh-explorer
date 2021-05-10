@@ -1,0 +1,6 @@
+
+public class Factory {
+	public static createQuery() {
+		System.out.println("Você quer buscar por usuários (1) ou repositórios (2)? Escolha um número.");
+	}
+}

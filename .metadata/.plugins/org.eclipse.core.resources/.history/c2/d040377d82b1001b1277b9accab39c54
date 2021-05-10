@@ -1,0 +1,28 @@
+package Query;
+
+public class UserQuery implements QueryInterface {
+	private String location;
+	private String language;
+	
+	@Override
+	public String getType() {
+		return "User";
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+}

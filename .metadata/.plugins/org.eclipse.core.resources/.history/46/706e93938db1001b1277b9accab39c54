@@ -1,0 +1,41 @@
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+import com.google.gson.*;
+
+import GitHubOutput.GitHubOutput;
+
+public class Searcher {
+	private String query;
+	private String urlBase="https://api.github.com/search/";
+	
+	Searcher(String query) {
+		this.setQuery(query);
+	}
+	
+	public void setQuery(String query) {
+		this.query = query;
+	}
+	
+	public GitHubOutput find(GitHubOutput output) throws Exception { 		
+		URL url = new URL(this.urlBase + this.query);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("Content-Type", "application/json");
+		
+		BufferedReader in = new BufferedReader(
+		  new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer content = new StringBuffer();
+		while ((inputLine = in.readLine()) != null) {
+		    content.append(inputLine);
+		}
+		con.disconnect();
+		Gson gson = new Gson();
+		
+		return gson.fromJson(content.toString(), output.getClass());
+	}
+}

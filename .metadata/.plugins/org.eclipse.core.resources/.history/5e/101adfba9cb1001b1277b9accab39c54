@@ -1,0 +1,11 @@
+package File;
+
+import java.io.FileWriter;
+
+public class Csv implements File {
+	private FileWriter writer;
+	
+	public Csv() {
+		this.writer = new FileWriter("./teste.csv");
+	}
+}

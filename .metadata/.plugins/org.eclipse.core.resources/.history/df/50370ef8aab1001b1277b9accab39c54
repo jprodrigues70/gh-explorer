@@ -1,0 +1,9 @@
+package Query;
+
+public enum QueryTypesEnum {
+	USER(1), REPO(2);
+
+	QueryTypesEnum(int i) {
+		// TODO Auto-generated constructor stub
+	}
+}

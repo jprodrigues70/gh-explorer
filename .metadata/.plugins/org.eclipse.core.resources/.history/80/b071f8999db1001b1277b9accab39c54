@@ -1,0 +1,14 @@
+package File;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Csv implements Files {
+	private FileWriter writer;
+	
+	public Csv() throws IOException {
+		Files file = new File("./teste.csv");
+		this.writer = new FileWriter("./teste.csv");
+		this.writer.close();
+	}
+}

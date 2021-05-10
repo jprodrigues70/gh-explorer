@@ -1,0 +1,10 @@
+package Query;
+
+public class UserQuery implements QueryInterface {
+	private location;
+	
+	@Override
+	public String getType() {
+		return "User";
+	}
+}

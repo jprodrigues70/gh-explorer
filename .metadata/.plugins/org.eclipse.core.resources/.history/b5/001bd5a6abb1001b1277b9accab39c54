@@ -1,0 +1,46 @@
+package Query;
+
+import GitHubOutput.GitHubOutput;
+import GitHubOutput.UserGitHubOutput;
+
+public class RepoQuery implements QueryInterface {
+	private String language;
+	private String search;
+	
+	@Override
+	public String getType() {
+		return "Repositories";
+	}
+	@Override
+	public String getSearch() {
+		return search;
+	}
+	
+	@Override
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	@Override
+	public void askAndMount() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getQuery() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public GitHubOutput getExpectedOutput() {
+		return null;
+	}
+
+}

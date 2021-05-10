@@ -1,0 +1,67 @@
+package Query;
+
+import java.util.Scanner;
+
+public class UserQuery implements QueryInterface {
+	private String location = "";
+	private String language = "";
+	private String search = "";
+	
+	@Override
+	public String getType() {
+		return "Users";
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	@Override
+	public String getSearch() {
+		return this.search;
+	}
+
+	@Override
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	@Override
+	public void askAndMount() {
+		System.out.println("Você quer usuários de qual localização? ('N' para não especificar)");
+		Scanner str = new Scanner(System.in);
+		String location = str.nextLine();
+		str.close();
+		this.setLocation(location);
+		System.out.println("Você quer usuários que programem em qual linguagem? ('N' para não especificar)");
+		String language = str.nextLine();
+		str.close();
+		this.setLanguage(language);
+	}
+
+	@Override
+	public String getQuery() throws Exception {
+		if (this.language.isBlank() && this.location.isBlank()) {
+			throw new Exception("Você precisa informar uma linguagem ou localização.");
+		} else if (this.language.isBlank()) {
+			return "?q=location%3A" + this.location + "&type=" + this.getType() + "&ref=advsearch";
+		} else if (this.location.isBlank()) {
+			return "?q=language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
+		}
+		
+		return "?q=location%3A" + this.location + "language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
+	}
+	
+}

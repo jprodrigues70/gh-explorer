@@ -1,0 +1,5 @@
+package Query;
+
+public interface QueryInterface {
+	private String tyep;
+}

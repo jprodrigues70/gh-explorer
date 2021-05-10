@@ -1,0 +1,6 @@
+
+public class GitHubOutput {
+	private int total_count;
+	private boolean incomplete_results;
+	private Array items;
+}

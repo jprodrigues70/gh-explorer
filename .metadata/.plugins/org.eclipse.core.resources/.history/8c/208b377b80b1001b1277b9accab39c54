@@ -1,0 +1,10 @@
+package Query;
+
+/**
+ * @author jprod
+ *
+ */
+public interface QueryInterface {
+	public void setType(String type);
+	public String getType();
+}

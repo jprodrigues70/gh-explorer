@@ -1,0 +1,11 @@
+import java.io.IOException;
+
+import Query.QueryInterface;
+
+public class Factory {
+	public static QueryInterface createQuery(int type) throws IOException {
+		if (type == 1) {
+			return new UserQuery();
+		}
+	}
+}

@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+import com.google.gson.*;
+
+public class Searcher {
+	private String presentationText = "Insira uma query de busca para o GitHub (ex:?q=location%3ABrasil+language%3APHP&type=Users&ref=advsearch&l=&l=PHP):";
+	private String query;
+	private String urlBase="https://api.github.com/search/";
+	
+	public void readQuery() {
+		System.out.println(this.presentationText);
+		Scanner scanner = new Scanner(System.in);
+		this.setQuery(scanner.nextLine());
+		scanner.close();
+	}
+	
+	public void setQuery(String query) {
+		this.query = query;
+	}
+	
+	public void find() throws Exception {
+		String typeOfSearch = Searcher.IdentifyType(this.query);
+		
+		URL url = new URL(this.urlBase + typeOfSearch + this.query);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("Content-Type", "application/json");
+		
+		BufferedReader in = new BufferedReader(
+		  new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer content = new StringBuffer();
+		while ((inputLine = in.readLine()) != null) {
+		    content.append(inputLine);
+		}
+
+		Gson gson = new Gson();
+		GitHubOutput githuboutput = gson.fromJson(content.toString(), GitHubOutput.class);
+		System.out.println(githuboutput.getItems().get(0).toString()));
+		in.close();
+		con.disconnect();
+		System.out.println(content);
+	}
+	
+	public static String IdentifyType(String query) throws Exception {
+		if (query.contains("type=Users")) {
+			return "users";
+		} else if (query.contains("type=repositories")) {
+			return "repo";
+		}
+		
+		throw new Exception("Você precisa incluir o \"type=Users\" ou \"type=repositories\" na query");
+	}
+}

@@ -1,0 +1,10 @@
+import java.util.Scanner;
+
+public class Explorer {
+
+	public static void main(String[] args) {
+		Searcher searcher = new Searcher();
+		searcher.readQuery();
+	}
+
+}

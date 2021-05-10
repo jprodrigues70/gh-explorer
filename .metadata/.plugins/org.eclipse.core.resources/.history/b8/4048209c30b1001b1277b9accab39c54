@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Searcher {
+	private String presentationText = ("Insira uma query de busca para o GitHub (ex:?q=location%3ABrasil+language%3APHP&type=Users&ref=advsearch&l=&l=PHP):"
+	public String readQuery() {
+		System.out.println);
+		Scanner scanner = new Scanner(System.in);
+		String query = scanner.nextLine();
+		scanner.close();
+		Searcher.find(query);
+		return 
+	}
+	public static void find(String query) throws Exception {
+		String typeOfSearch = Searcher.IdentifyType(query);
+		
+	}
+	
+	public static String IdentifyType(String query) throws Exception {
+		if (query.contains("type=Users")) {
+			return "Users";
+		} else if (query.contains("type=repositories")) {
+			return "Repo";
+		}
+		
+		throw new Exception("Você precisa incluir o \"type=Users\" ou \"type=repositories\" na query");
+	}
+}

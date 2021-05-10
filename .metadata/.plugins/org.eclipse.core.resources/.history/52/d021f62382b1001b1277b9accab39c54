@@ -1,0 +1,12 @@
+package Query;
+
+public class RepoQuery implements QueryInterface {
+	private String language;
+	
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
