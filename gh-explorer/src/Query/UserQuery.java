@@ -80,11 +80,11 @@ public class UserQuery implements QueryInterface {
 
 	@Override
 	public String getQuery() throws Exception {
-		if (this.language.isBlank() && this.location.isBlank()) {
+		if (this.language.isEmpty() && this.location.isEmpty()) {
 			throw new Exception("Você precisa informar uma linguagem ou localização.");
-		} else if (this.language.isBlank()) {
+		} else if (this.language.isEmpty()) {
 			return "users?q=location%3A" + this.location + "&type=" + this.getType() + "&ref=advsearch";
-		} else if (this.location.isBlank()) {
+		} else if (this.location.isEmpty()) {
 			return "users?q=language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
 		}
 		
@@ -104,6 +104,6 @@ public class UserQuery implements QueryInterface {
 	}
 	
 	public boolean hasToken() {
-		return this.token.isBlank();
+		return this.token.isEmpty();
 	}
 }

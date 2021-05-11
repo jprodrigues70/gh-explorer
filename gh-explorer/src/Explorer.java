@@ -19,7 +19,7 @@ public class Explorer {
 		
 		query.askAndMount();
 		
-		Searcher searcher = Factory.createSearcher(query.getExpectedOutput(), query.getQuery());		
+		Searcher searcher = Factory.createSearcher(query.getExpectedOutput(), query);		
 		System.out.println("Vamos procurar por: " + searcher.getUrl());
 		
 		GitHubOutput output = searcher.find();

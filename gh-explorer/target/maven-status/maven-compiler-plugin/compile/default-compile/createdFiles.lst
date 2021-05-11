@@ -1,0 +1,16 @@
+Query\QueryTypesEnum.class
+Query\RepoQuery.class
+GitHubEntity\User.class
+ConexaoBanco\TesteConexao.class
+Query\UserQuery.class
+Searcher.class
+File\Files.class
+Explorer.class
+Factory.class
+GitHubOutput\GitHubOutput.class
+Query\QueryInterface.class
+ConexaoBanco\Conexao.class
+File\Csv.class
+GitHubEntity\Repo.class
+GitHubEntity\GitHubEntity.class
+GitHubOutput\UserGitHubOutput.class
