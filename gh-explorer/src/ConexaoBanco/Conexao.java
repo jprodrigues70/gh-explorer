@@ -12,7 +12,7 @@ public class Conexao {
 	protected Connection getConector() throws ClassNotFoundException, SQLException {
 		if (conexao == null) {
 			Class.forName("com.mysql.jdbc.Driver");
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/topicoEngenharia?serverTimezone=UTC", "root", "1234");
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/engenhariatop?serverTimezone=UTC", "root", "1234");
 		}
 		return conexao;
 	}
