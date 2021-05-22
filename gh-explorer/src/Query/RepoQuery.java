@@ -3,7 +3,6 @@ package Query;
 import java.util.Scanner;
 
 import GitHubOutput.GitHubOutput;
-import GitHubOutput.UserGitHubOutput;
 
 public class RepoQuery implements QueryInterface {
 	private String language;

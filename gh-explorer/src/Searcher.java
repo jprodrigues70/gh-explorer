@@ -3,12 +3,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.google.gson.*;
 
+import GitHubEntity.Repo;
+import GitHubEntity.User;
 import GitHubOutput.GitHubOutput;
+import Pattern.Observer;
 import Query.QueryInterface;
 
-public class Searcher {
+public class Searcher implements Observer{
 	private QueryInterface query;
 	private String urlBase="https://api.github.com/search/";
 	private GitHubOutput outputClass;
@@ -26,7 +28,7 @@ public class Searcher {
 		return this.urlBase + this.query.getQuery();
 	}
 	
-	public GitHubOutput find() throws Exception { 		
+	public StringBuffer find() throws Exception { 		
 		URL url = new URL(this.getUrl());
 		
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -45,9 +47,18 @@ public class Searcher {
 			
 		con.disconnect();
 		
-		Gson gson = new Gson();
+		if(content.equals("")) {
+			Repo repo = new Repo();
+			atualizar(repo);
+		}
+		if(content.equals("")) {
+			User user = new User();
+			atualizar(user);
+		}
 		
-		return gson.fromJson(content.toString(), outputClass.getClass());
+		//Gson gson = new Gson();
+		return content;
+		//return gson.fromJson(content.toString(), outputClass.getClass());
 	}
 
 	public GitHubOutput getOutputClass() {
@@ -56,5 +67,17 @@ public class Searcher {
 
 	public void setOutputClass(GitHubOutput outputClass) {
 		this.outputClass = outputClass;
+	}
+
+	@Override
+	public void atualizar(Repo repo) {
+		// persiste o Repo no BD
+		
+	}
+
+	@Override
+	public void atualizar(User user) {
+		// persiste o User no BD
+		
 	}
 }

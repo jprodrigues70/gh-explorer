@@ -1,12 +1,19 @@
 package GitHubEntity;
 
-public class Repo {
+import java.util.ArrayList;
+
+import Pattern.Observer;
+import Pattern.Subject;
+
+public class Repo implements Subject{
 	private String name;
 	private String owner_name;
 	private String owner_id;
 	private String url;
 	private String stars;
 	private String forks;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	
 	public String getName() {
 		return name;
 	}
@@ -18,6 +25,7 @@ public class Repo {
 	}
 	public void setOwner_name(String owner_name) {
 		this.owner_name = owner_name;
+		this.notificarObservers();
 	}
 	public String getOwner_id() {
 		return owner_id;
@@ -42,6 +50,28 @@ public class Repo {
 	}
 	public void setForks(String forks) {
 		this.forks = forks;
+	}
+	
+	@Override
+	public void incluirObserver(Observer observer) {
+		observers.add(observer);
+	}
+
+	@Override
+	public void removerObserver(Observer observer) {
+		int i = observers.indexOf(observer);
+		if(i >= 0 ) {
+			observers.remove(i);
+		}
+		
+	}
+
+	@Override
+	public void notificarObservers() {
+		for(int i = 0; i < observers.size(); i++) {
+			Observer observer = observers.get(i);
+			observer.atualizar(this);
+		}
 	}
 	
 	

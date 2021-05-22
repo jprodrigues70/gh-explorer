@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import GitHubEntity.GitHubEntity;
 import GitHubEntity.User;
+import Pattern.Observer;
 
-public class UserGitHubOutput implements GitHubOutput {
+public class UserGitHubOutput implements GitHubOutput{
 	public ArrayList<User> items;
 	public int total_count;
 	public boolean incomplete_results;
@@ -23,4 +24,8 @@ public class UserGitHubOutput implements GitHubOutput {
 	public GitHubEntity getType() {
 		return new User();
 	}
+
+	
+	
+	
 }
