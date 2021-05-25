@@ -8,10 +8,10 @@ public class RepoQuery implements QueryInterface {
 	private String language;
 	private String search;
 	private Scanner str = new Scanner(System.in);
+	public static String type = "Repositories";
 	
-	@Override
 	public String getType() {
-		return "Repositories";
+		return RepoQuery.type;
 	}
 	@Override
 	public String getSearch() {

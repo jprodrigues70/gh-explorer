@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import File.Csv;
+//import File.Csv;
 import GitHubEntity.GitHubEntity;
 import GitHubOutput.GitHubOutput;
 import Query.QueryInterface;
+import Search.Searcher;
 
 public class Explorer {
 
@@ -19,13 +20,14 @@ public class Explorer {
 		
 		query.askAndMount();
 		
-		Searcher searcher = Factory.createSearcher(query.getExpectedOutput(), query);		
+		Searcher searcher = Factory.createSearcher(query.getExpectedOutput(), query);
+		
 		System.out.println("Vamos procurar por: " + searcher.getUrl());
 		
-		GitHubOutput output = searcher.find();
-		ArrayList items = output.getItems();
+		searcher.find();
+//		ArrayList items = output.getItems();
 		
-		new Csv();
+//		new Csv();
 		
 //        String input = "[\"user1\",\"track1\",\"player1\", \"user1\",\"track2\",\"player2\", \"user1\",\"track3\",\"player3\"]";
 //        input = input.substring(1, input.length() - 1); // get rid of brackets

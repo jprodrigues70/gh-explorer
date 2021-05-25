@@ -1,9 +1,7 @@
 package Pattern;
 
 public interface Subject {
-	
-	public void incluirObserver(Observer observer);
-	public void removerObserver(Observer observer);
-	public void notificarObservers();
-
+	public void addObserver(Observer observer);
+	public void removeObserver(Observer observer);
+	public void notifyObservers();
 }

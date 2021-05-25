@@ -11,10 +11,10 @@ public class UserQuery implements QueryInterface {
 	private String search = "";
 	private Scanner str = new Scanner(System.in);
 	private String token = "";
+	public static String type = "Users";
 	
-	@Override
 	public String getType() {
-		return "Users";
+		return UserQuery.type;
 	}
 
 	public String getLocation() {

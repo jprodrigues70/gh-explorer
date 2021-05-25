@@ -1,10 +1,6 @@
 package Pattern;
-import GitHubEntity.Repo;
-import GitHubEntity.User;
+import Search.Searcher;
 
 public interface Observer {
-
-	public void atualizar(Repo repo);
-	public void atualizar(User user);
-	
+	public void update(Searcher search);
 }
