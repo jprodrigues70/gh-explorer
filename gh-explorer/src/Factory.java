@@ -21,8 +21,10 @@ public class Factory {
 		Searcher searcher = new Searcher(type, query);
 		User user = new User();
 		Repo repo = new Repo();
+		
 		searcher.addObserver(user);
 		searcher.addObserver(repo);
+		
 		return searcher;
 	}
 }

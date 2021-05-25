@@ -3,14 +3,14 @@ package GitHubOutput;
 import java.util.ArrayList;
 
 import GitHubEntity.GitHubEntity;
-import GitHubEntity.User;
+import GitHubEntity.Repo;
 
-public class UserGitHubOutput implements GitHubOutput{
-	public ArrayList<User> items;
+public class RepoGitHubOutput  implements GitHubOutput{
+	public ArrayList<Repo> items;
 	public int total_count;
 	public boolean incomplete_results;
 	
-	public ArrayList<User> getItems() {
+	public ArrayList<Repo> getItems() {
 		return this.items;
 	}
 
@@ -21,6 +21,6 @@ public class UserGitHubOutput implements GitHubOutput{
 
 	@Override
 	public GitHubEntity getType() {
-		return new User();
+		return new Repo();
 	}	
 }

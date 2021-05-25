@@ -5,8 +5,8 @@ public class User implements GitHubEntity {
 	private String login;
 	private String url;
 	private String id;
-	private String location;
-	private String email;
+	private String location = "";
+	private String email = "";
 	
 	
 	public String getUrl() {
@@ -35,6 +35,10 @@ public class User implements GitHubEntity {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public Boolean hasEmail() {
+		return this.email != null && !this.email.isEmpty() && !this.email.isBlank();
 	}
 
 	public void setEmail(String email) {

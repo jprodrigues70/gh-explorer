@@ -3,12 +3,17 @@ package Query;
 import java.util.Scanner;
 
 import GitHubOutput.GitHubOutput;
+import GitHubOutput.RepoGitHubOutput;
 
 public class RepoQuery implements QueryInterface {
-	private String language;
+	private String language = "";
 	private String search;
 	private Scanner str = new Scanner(System.in);
 	public static String type = "Repositories";
+	private String urlBase="https://api.github.com/search/";
+	private String token = "";
+	private String location = "";
+	private String query = "";
 	
 	public String getType() {
 		return RepoQuery.type;
@@ -37,19 +42,55 @@ public class RepoQuery implements QueryInterface {
 		this.setSearch(search);
 	}
 	
+	private void readLanguage() {
+		System.out.println("Em qual linguagem? ('N' para não especificar)");
+		String language = str.nextLine();
+		
+		if (!language.equals("N")) {			
+			this.setLanguage(language);
+		}
+	}
+	
 	@Override
 	public void askAndMount() {
-		this.readSearch();		
+		this.readSearch();	
+		this.readLanguage();		
+	}
+
+	@Override
+	public String getQuery() throws Exception {
+		if (!this.query.isBlank()) {
+			return this.query;
+		}
+
+		String query = "";
+		if (this.language.isEmpty()) {
+			query = "repositories?q=" + this.search + "&type=Repositories&sort=stars&order=desc";
+		} else {
+			query = "repositories?q=" + this.search + "+language:" + this.language + "&type=Repositories&sort=stars&order=desc";
+		}
+		
+		return  this.urlBase + query;
+	}
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public boolean hasToken() {
+		return this.token.isEmpty();
 	}
 	
 	@Override
-	public String getQuery() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void setQuery(String query) {
+		this.query = query;
 	}
-	
+	@Override
 	public GitHubOutput getExpectedOutput() {
-		return null;
+		return new RepoGitHubOutput();
 	}
-
 }

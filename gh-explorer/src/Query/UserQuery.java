@@ -12,6 +12,8 @@ public class UserQuery implements QueryInterface {
 	private Scanner str = new Scanner(System.in);
 	private String token = "";
 	public static String type = "Users";
+	private String query = "";
+	private String urlBase="https://api.github.com/search/";
 	
 	public String getType() {
 		return UserQuery.type;
@@ -80,15 +82,26 @@ public class UserQuery implements QueryInterface {
 
 	@Override
 	public String getQuery() throws Exception {
+		if (!this.query.isBlank()) {
+			return this.query;
+		}
+
+		String query = "";
 		if (this.language.isEmpty() && this.location.isEmpty()) {
 			throw new Exception("Você precisa informar uma linguagem ou localização.");
 		} else if (this.language.isEmpty()) {
-			return "users?q=location%3A" + this.location + "&type=" + this.getType() + "&ref=advsearch";
+			query =  "users?q=location%3A" + this.location + "&type=" + this.getType() + "&ref=advsearch";
 		} else if (this.location.isEmpty()) {
-			return "users?q=language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
+			query = "users?q=language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
+		} else {			
+			query = "users?q=location%3A" + this.location + "+language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
 		}
 		
-		return "users?q=location%3A" + this.location + "+language%3A" + this.language + "&type=" + this.getType() + "&ref=advsearch&l=" + this.language;
+		return  this.urlBase + query;
+	}
+	
+	public void setQuery(String query) {
+		this.query = query;
 	}
 	
 	public GitHubOutput getExpectedOutput() {

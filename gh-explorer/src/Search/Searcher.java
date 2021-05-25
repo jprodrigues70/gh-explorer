@@ -1,13 +1,11 @@
 package Search;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-import GitHubEntity.Repo;
-import GitHubEntity.User;
 import GitHubOutput.GitHubOutput;
 import Pattern.Observer;
 import Pattern.Subject;
@@ -17,9 +15,9 @@ public class Searcher implements Subject {
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	private QueryInterface query;
-	private String urlBase="https://api.github.com/search/";
 	private GitHubOutput outputClass;
 	private String results;
+	private Boolean finished = false;
 	
 	public Searcher(GitHubOutput output, QueryInterface query)  {
 		this.setOutputClass(output);
@@ -34,11 +32,15 @@ public class Searcher implements Subject {
 		this.query = query;
 	}
 	
-	public String getUrl( ) throws Exception {
-		return this.urlBase + this.query.getQuery();
+	public QueryInterface getQuery() {
+		return this.query;
 	}
 	
-	public void setResults(String results) {
+	public String getUrl( ) throws Exception {
+		return this.query.getQuery();
+	}
+	
+	public void setResults(String results) throws IOException {
 		this.results = results;
 		this.notifyObservers();
 	}
@@ -46,13 +48,24 @@ public class Searcher implements Subject {
 	public String getResults() {
 		return this.results;
 	}
+
+	public Boolean getFinished() {
+		return finished;
+	}
+
+	public void setFinished(Boolean finished) throws IOException {
+		this.finished = finished;
+		this.notifyObservers();
+	}
 	
-	public void find() throws Exception { 		
-		URL url = new URL(this.getUrl());
-		
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+	public String go(HttpURLConnection con) throws IOException {
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Content-Type", "application/json");
+		
+		String token = this.query.getToken();
+		if (!token.isBlank()) {			
+			con.setRequestProperty("Authorization", "token " + this.query.getToken());
+		}
 		
 		BufferedReader in = new BufferedReader(
 		  new InputStreamReader(con.getInputStream()));
@@ -63,23 +76,42 @@ public class Searcher implements Subject {
 		while ((inputLine = in.readLine()) != null) {
 		    content.append(inputLine);
 		}
+		return content.toString();
+	}
+	
+	public void find() throws Exception { 		
+
+		URL url = new URL(this.getUrl());
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		String content = this.go(con);
+		this.setResults(content);
+
+		String header = con.getHeaderField("link");         
+
+		if (!this.getUrl().contains("page=10") && header != null && header.contains("rel=\"next\"")) {
+	    	String[] links = header.split("[,]", 0);
+	    	
+	    	for (int i = 0; i < links.length; i++) {
+	    		if (links[i].contains("rel=\"next\"")) {
+	    			String str = links[i];
+	    			String query = str.substring(0 , str.indexOf('>')).replace("<", "");
+	    			
+	    			if (!this.getUrl().contentEquals(query) && !query.contains("page=11")) {
+	    				this.query.setQuery(query);				
+	    				this.find();
+	    				break;
+	    			} else {
+	    				this.setFinished(true);
+	    				break;
+	    			}
+	    		}
+	    	}
+		} else {			
+			this.setFinished(true);
+		}
 		
-		this.setResults(content.toString());
 			
 		con.disconnect();
-		
-//		if(content.equals("")) {
-//			Repo repo = new Repo();
-//			atualizar(repo);
-//		}
-//		if(content.equals("")) {
-//			User user = new User();
-//			atualizar(user);
-//		}
-		
-		//Gson gson = new Gson();
-//		return content;
-		//return gson.fromJson(content.toString(), outputClass.getClass());
 	}
 
 	public GitHubOutput getOutputClass() {
@@ -104,7 +136,7 @@ public class Searcher implements Subject {
 	}
 
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers() throws IOException {
 		for (int i = 0; i < observers.size(); i++) {
 			Observer observer = observers.get(i);
 			observer.update(this);
