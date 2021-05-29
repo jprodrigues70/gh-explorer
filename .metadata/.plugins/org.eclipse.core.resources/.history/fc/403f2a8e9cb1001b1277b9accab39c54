@@ -1,7 +1,0 @@
-package File;
-
-public class Csv implements File {
-	public Csv() {
-		this.writer = new FileWriter();
-	}
-}

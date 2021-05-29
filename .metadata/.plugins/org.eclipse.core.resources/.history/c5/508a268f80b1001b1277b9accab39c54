@@ -1,5 +1,0 @@
-package Query;
-
-public class UserQuery implements QueryInterface {
-	public String getType
-}

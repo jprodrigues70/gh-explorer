@@ -1,8 +1,0 @@
-package GitHubOutput;
-
-public interface GitHubOutput {
-//	public int total_count;
-//	public boolean incomplete_results;
-	
-	public int getTotalCount();
-}

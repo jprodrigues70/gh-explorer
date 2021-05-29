@@ -1,9 +1,0 @@
-
-public class User {
-	private String name;
-	private String login;
-	
-	public setName(String name) {
-		this.name = name;
-	}
-}
